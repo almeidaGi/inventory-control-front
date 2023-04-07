@@ -1,0 +1,63 @@
+<div class="container mt-5">
+    <div class=" mb-5">
+        <br />
+        <h1>Cadastro de Produto</h1>
+    </div>
+    <form [formGroup]="form">
+        <div class="mb-3 row">
+            <div class="col">
+                <label for="exampleFormControlInput1" class="form-label">Nome</label>
+                <input type="email" class="form-control" formControlName="name" placeholder="Nome do Produto">
+                <mat-error *ngIf="form.get('name')?.errors?.['required'] && form.get('name')?.touched">
+                   Por favor, campo requerido
+                </mat-error>
+                <mat-error *ngIf="form.get('name')?.errors?.['minlength'] && form.get('name')?.touched">
+                    Por favor, campo deve conter no mínimo {{form.get('name')?.errors?.['minlength'].requiredLength}}
+                 </mat-error>
+            </div>
+            <div class="col">
+                <label for="exampleFormControlInput1" class="form-label">Código</label>
+                <input type="number" class="form-control"  formControlName="code" placeholder="Código do Produto">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+            <textarea class="form-control"  formControlName="description" rows="3"></textarea>
+            <mat-error *ngIf="form.get('description')?.errors && form.get('description')?.touched">
+                Por favor, campo requerido
+             </mat-error>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <label for="quantity" class="form-label">Quantidade</label>
+                <input type="number" class="form-control" id="quantity" formControlName="quantity">
+                <mat-error *ngIf="form.get('quantity')?.errors && form.get('quantity')?.touched">
+                    Por favor, campo requerido
+                 </mat-error>
+            </div>
+            <div class="col-2">
+                <label class="form-label" for="color">Cor</label>
+                <select  formControlName="optionColor" class="form-select" >
+                    <option value="Dourado">Dourado</option>
+                    <option value="Níquel">Níquel</option>
+                    <option value="Prata">Prata</option>
+                </select>
+                <mat-error *ngIf="form.get('optionColor')?.errors && form.get('optionColor')?.touched">
+                    Por favor, selecione uma opção.
+                 </mat-error>
+            </div>
+
+        </div>
+        <div class="col">
+           
+        </div>
+    </form>
+    <div class="row mt-5">
+    <div class="col d-flex justify-content-start">
+        <button mat-raised-button >voltar</button>
+    </div>
+    <div class="col d-flex justify-content-end">
+        <button [disabled]="form.invalid" (click)="registerProduct(form.value)" mat-raised-button color="primary">Cadastrar</button>
+    </div>
+    </div>
+</div>
