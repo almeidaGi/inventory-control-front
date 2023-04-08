@@ -7,9 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ServiceService {
-  protected http: HttpClient;
   readonly apiURL : string;
-  constructor() {this.apiURL == 'http://localhost:8080';}
+  constructor(protected http: HttpClient) {this.apiURL = 'http://localhost:8080';}
 
   public createdProduct(payload: Produtc): Observable<Produtc>{
     const url =  `${this.apiURL}/product`;

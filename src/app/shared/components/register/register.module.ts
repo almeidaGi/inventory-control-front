@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { RegisterComponent } from './register.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ServiceService } from '../../service/service.service';
 
 
 
@@ -17,8 +19,12 @@ import { RegisterComponent } from './register.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
 
+  ],
+  providers: [
+    ServiceService
   ],
   exports: [
     RegisterComponent
