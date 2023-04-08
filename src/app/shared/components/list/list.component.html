@@ -1,0 +1,49 @@
+<div class="container">
+    <div class=" mb-5">
+        <br />
+        <div class="row">
+        <h1 class="col d-flex justify-content-start">Produtos Cadastrados</h1>
+        <div class="col d-flex justify-content-end">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="newProduct()" mat-menu-item>
+              <mat-icon>add</mat-icon>
+              <span  >Adicionar Produto</span>
+            </button>
+          </mat-menu>
+        </div>           
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Código  </th>
+        <th scope="col">Cor</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Name</th>
+        <th scope="col">Quantidade</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="(listProducts$ | async) as listProducts">     
+      <tr  *ngFor="let list of listProducts">
+        <td>{{list.code}}</td>
+        <td>{{list.color}}</td>
+        <td>{{list.description}}</td>
+        <td>{{list.name}}</td>
+        <td>{{list.quantity}}</td>
+        <td>
+          <button (click)="editProduct(list)" mat-icon-button >
+             <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+        <td>
+            <button mat-icon-button >
+               <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
