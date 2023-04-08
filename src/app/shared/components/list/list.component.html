@@ -19,19 +19,22 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">Código  </th>
+        <th scope="col">Name</th>
+        <th scope="col">Valor  </th>
+       
         <th scope="col">Cor</th>
         <th scope="col">Descrição</th>
-        <th scope="col">Name</th>
+ 
         <th scope="col">Quantidade</th>
       </tr>
     </thead>
-    <tbody *ngIf="(listProducts$ | async) as listProducts">     
+    <tbody *ngIf="(listProducts$ | async) as listProducts ">     
       <tr  *ngFor="let list of listProducts">
-        <td>{{list.code}}</td>
+        <td>{{list.name}}</td>
+        <td>{{list.valor}}</td>
+            
         <td>{{list.color}}</td>
         <td>{{list.description}}</td>
-        <td>{{list.name}}</td>
         <td>{{list.quantity}}</td>
         <td>
           <button (click)="editProduct(list)" mat-icon-button >
@@ -39,11 +42,12 @@
           </button>
         </td>
         <td>
-            <button mat-icon-button >
+            <button  (click)="dellProduct(list)" mat-icon-button >
                <mat-icon>delete</mat-icon>
             </button>
           </td>
       </tr>
     </tbody>
   </table>
+  <div class="col d-flex justify-content-center" *ngIf=" !!(listProducts$ | async).id"><h1>Nenhum Produto Cadastrado  </h1> </div>
 </div>

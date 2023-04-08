@@ -1,7 +1,7 @@
 export interface Produtc {
     id?: number;
     name: string;
-    code?: number | null;
+    value: string;
     description?: string | null;
     color: string;
     quantity: number;

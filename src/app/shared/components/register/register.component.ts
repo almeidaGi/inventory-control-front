@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ServiceService } from '../../service/service.service';
 import { Produtc } from '../../produtc-model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private serviceService: ServiceService,
     private router: Router,
-
+    private toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {
@@ -32,7 +33,13 @@ export class RegisterComponent implements OnInit {
     });
     this.uptadeScreen(this.product);
   }
-
+  showSuccess() {
+    if(this.url === '/edit'){
+    this.toastr.success('Produto Atualizado com sucesso');
+    return
+    }
+    this.toastr.success('Produto Criado com sucesso');
+  }
   public uptadeScreen(data: any): void{
     if(this.url === '/edit'){
     this.form.get('name')?.patchValue(data.name);
@@ -43,18 +50,18 @@ export class RegisterComponent implements OnInit {
     }
   }
   public formValues() {
-    this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
-      code: new FormControl(null,),
-      description: new FormControl(null),
-      quantity: new FormControl(null, [Validators.required]),
-      optionColor: new FormControl(null, [Validators.required]),
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
+      value: new UntypedFormControl(null,),
+      description: new UntypedFormControl(null),
+      quantity: new UntypedFormControl(null, [Validators.required]),
+      optionColor: new UntypedFormControl(null, [Validators.required]),
     })
   }
-  public save(form: FormGroup) {
+  public save(form: UntypedFormGroup) {
     this.payload = {
       name: this.form?.get('name')?.value,
-      code: this.form?.get('code')?.value,
+      value: this.form?.get('value')?.value,
       description: this.form?.get('description')?.value,
       color: this.form?.get('optionColor')?.value,
       quantity: this.form?.get('quantity')?.value,
@@ -63,11 +70,12 @@ export class RegisterComponent implements OnInit {
     let payloadUpdate ={ id: this.product.id, ...this.payload};
    console.log(payloadUpdate);
     this.serviceService.updateProduct(payloadUpdate).subscribe();
+    this.showSuccess();
       return;
-    
     }
     this.serviceService.createdProduct(this.payload).subscribe(res=>{
       if(!!res){
+        this.showSuccess();
         this.formValues();
       }
     });

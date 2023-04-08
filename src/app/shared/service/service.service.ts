@@ -29,5 +29,8 @@ export class ServiceService {
   public updateData(data: any){
     this.dataSubject.next(data);
   }
-
+  public dellProduct(id: number): Observable<any>{
+      const url =  `${this.apiURL}/product/${id}`;
+      return this.http.delete<Produtc>(url);
+  }
 }
