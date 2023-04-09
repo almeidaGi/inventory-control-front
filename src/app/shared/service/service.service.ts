@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Produtc } from '../produtc-model';
+import { Produtc, content } from '../produtc-model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -12,17 +12,17 @@ export class ServiceService {
   public data = this.dataSubject.asObservable();
   constructor(protected http: HttpClient) {this.apiURL = 'http://localhost:8080';}
 
-  public createdProduct(payload: Produtc): Observable<Produtc>{
+  public createdProduct(payload: Produtc | content): Observable<Produtc>{
     const url =  `${this.apiURL}/product`;
     return this.http.post<Produtc>(url, payload);
   } 
 
-  public updateProduct(payload: Produtc): Observable<Produtc>{
+  public updateProduct(payload: Produtc | content): Observable<Produtc>{
     const url = `${this.apiURL}/product`;
     return this.http.put<Produtc>(url, payload);
   } 
 
-  public litProduct(): Observable <Produtc>{
+  public litProduct(): Observable <any>{
     const url = `${this.apiURL}/product`;
     return this.http.get<Produtc>(url);
   } 
@@ -31,6 +31,6 @@ export class ServiceService {
   }
   public dellProduct(id: number): Observable<any>{
       const url =  `${this.apiURL}/product/${id}`;
-      return this.http.delete<Produtc>(url);
+      return this.http.delete<content>(url);
   }
 }

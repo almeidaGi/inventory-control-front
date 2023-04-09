@@ -18,7 +18,10 @@
             </div>
             <div class="col">
                 <label for="value" class="form-label">Valor</label>
-                <input type="text"  class="form-control"  formControlName="value" placeholder="0,00"  currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }">
+               <input type="text"  class="form-control"  formControlName="value" placeholder="R$ 0,00"  currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }">
+               <mat-error *ngIf="form.get('value')?.errors?.['required'] && form.get('name')?.touched">
+                Por favor, campo requerido
+             </mat-error>
             </div>
         </div>
         <div class="mb-3">
@@ -57,8 +60,11 @@
     <div class="col d-flex justify-content-start">
         <button (click)="backToProductList()"  mat-raised-button >voltar</button>
     </div>
-    <div class="col d-flex justify-content-end">
+    <div  *ngIf="url === '/new'" class="col d-flex justify-content-end">
         <button [disabled]="form.invalid" (click)="save(form.value)" mat-raised-button color="primary">Cadastrar</button>
+    </div>
+    <div *ngIf="url === '/edit'"class="col d-flex justify-content-end">
+        <button [disabled]="form.invalid" (click)="save(form.value)" mat-raised-button color="primary">Atualizar</button>
     </div>
     </div>
 </div>

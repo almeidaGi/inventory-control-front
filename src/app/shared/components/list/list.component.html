@@ -1,9 +1,14 @@
+<form [formGroup]="form">
 <div class="container">
     <div class=" mb-5">
+        <br />
         <br />
         <div class="row">
         <h1 class="col d-flex justify-content-start">Produtos Cadastrados</h1>
         <div class="col d-flex justify-content-end">
+       
+          <input type="text"  class="form-control"(input)="filter(this.form?.get?.('name')?.value)" formControlName="name" placeholder="Filtre por Nome ou Descrição">
+
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -19,7 +24,7 @@
 <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">Name</th>
+        <th scope="col">Nome</th>
         <th scope="col">Valor  </th>
        
         <th scope="col">Cor</th>
@@ -28,10 +33,11 @@
         <th scope="col">Quantidade</th>
       </tr>
     </thead>
-    <tbody *ngIf="(listProducts$ | async) as listProducts ">     
-      <tr  *ngFor="let list of listProducts">
+   
+    <tbody *ngIf="filterItems ">     
+      <tr  *ngFor="let list of filterItems[0]">
         <td>{{list.name}}</td>
-        <td>{{list.valor}}</td>
+        <td>R$ {{list.value}}</td>
             
         <td>{{list.color}}</td>
         <td>{{list.description}}</td>
@@ -49,5 +55,6 @@
       </tr>
     </tbody>
   </table>
-  <div class="col d-flex justify-content-center" *ngIf=" !!(listProducts$ | async).id"><h1>Nenhum Produto Cadastrado  </h1> </div>
-</div>
+<div class="col d-flex justify-content-center" *ngIf="listProdutcNull === true"><h1>Nenhum Produto Cadastrado  </h1> </div>
+  </div>
+</form> 

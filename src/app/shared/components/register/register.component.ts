@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AfterContentInit, AfterViewChecked, Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ServiceService } from '../../service/service.service';
-import { Produtc } from '../../produtc-model';
+import { Produtc, content } from '../../produtc-model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,9 +10,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterContentInit {
   public form: FormGroup;
-  public payload: Produtc;
+  public payload: content;
   public url: string;
   public product: any;
 
@@ -25,12 +25,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.formValues();
     this.url = this.router.url;
+ 
+  }
+  ngAfterContentInit(): void {
     this.checkIfItIsAProductEdition();
   }
   public checkIfItIsAProductEdition(){
     this.serviceService.data.subscribe(data=>{
       this.product = data;
     });
+    console.log(this.product);
     this.uptadeScreen(this.product);
   }
   showSuccess() {
@@ -43,22 +47,22 @@ export class RegisterComponent implements OnInit {
   public uptadeScreen(data: any): void{
     if(this.url === '/edit'){
     this.form.get('name')?.patchValue(data.name);
-    this.form.get('code')?.patchValue(data.code);
+    this.form.get('value')?.patchValue(data.value);
     this.form.get('description')?.patchValue(data.description);
     this.form.get('quantity')?.patchValue(data.quantity);
     this.form.get('optionColor')?.patchValue(data.color);
     }
   }
   public formValues() {
-    this.form = new UntypedFormGroup({
-      name: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
-      value: new UntypedFormControl(null,),
-      description: new UntypedFormControl(null),
-      quantity: new UntypedFormControl(null, [Validators.required]),
-      optionColor: new UntypedFormControl(null, [Validators.required]),
+    this.form = new FormGroup({
+      name: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      value: new FormControl(null,[Validators.required]),
+      description: new FormControl(null),
+      quantity: new FormControl(null, [Validators.required]),
+      optionColor: new FormControl(null, [Validators.required]),
     })
   }
-  public save(form: UntypedFormGroup) {
+  public save(form: FormGroup) {
     this.payload = {
       name: this.form?.get('name')?.value,
       value: this.form?.get('value')?.value,

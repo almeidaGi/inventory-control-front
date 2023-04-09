@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 
 import { ListComponent } from './list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { ListComponent } from './list.component';
     MatButtonToggleModule,
     MatBadgeModule,
     MatBottomSheetModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     ListComponent
