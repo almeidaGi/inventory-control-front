@@ -14,7 +14,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ListComponent implements OnInit, AfterContentInit{
   public listProducts$: Observable<any>;
-  public listProdutcNull: Boolean;
+  public listProdutcNull = false;
   public valueInput: string = '';
   public filterItems: Array<any> =[];
   public procucts: Array<any> = [];
@@ -34,14 +34,13 @@ export class ListComponent implements OnInit, AfterContentInit{
     })
   }
  ngAfterContentInit(): void {
-  this.listProdutcNull = true;
   this.serviceService.litProduct().subscribe(res=>{
      this.procucts.push(res.content);
      this.filterItems.push(res.content);
-     console.log(this.filterItems[0].filter((min:any)=>{     
+     this.filterItems[0].filter((min:any)=>{     
       if( min.alertMin ===true)  this.aletIventoryMin(min);
-     }));
-    if(!!res) this.listProdutcNull = false;
+     });
+    this.listProdutcNull = res.content.length === 0;
     return;
   })
 
@@ -67,7 +66,6 @@ export class ListComponent implements OnInit, AfterContentInit{
  public dellProduct(list: any){
   this.serviceService.dellProduct(list.id).subscribe(res=>{
     this.toastr.success(list.name +', deletado com sucesso')
-   // this.listProducts$ = this.serviceService.litProduct();
     document.location.reload();
   })
  }
