@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit, AfterContentInit {
   constructor(
     private serviceService: ServiceService,
     private router: Router,
-    private toastr: ToastrService,
+    public toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {

@@ -1,60 +1,71 @@
-<form [formGroup]="form">
 <div class="container">
+  <form [formGroup]="form">
     <div class=" mb-5">
-        <br />
-        <br />
-        <div class="row">
-        <h1 class="col d-flex justify-content-start">Produtos Cadastrados</h1>
-        <div class="col d-flex justify-content-end">
-       
-          <input type="text"  class="form-control"(input)="filter(this.form?.get?.('name')?.value)" formControlName="name" placeholder="Filtre por Nome ou Descrição">
+      <br />
+      <br />
+      <div class="row">
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <P class="h3 col d-flex justify-content-start">Produtos Cadastrados</P>
+        <div class="col d-flex justify-content-end">
+          <div class="col">
+            <input type="text" class="form-control" (input)="filter(this.form?.get?.('name')?.value)"
+              formControlName="name" placeholder="Filtre por Nome ou Descrição">
+          </div>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
             <button (click)="newProduct()" mat-menu-item>
               <mat-icon>add</mat-icon>
-              <span  >Adicionar Produto</span>
+              <span>Adicionar Produto</span>
+            </button>
+            <button (click)="help()" mat-menu-item>
+              <mat-icon>help_outline</mat-icon>
+              <span>Ajuda</span>
             </button>
           </mat-menu>
-        </div>           
+        </div>
+      </div>
     </div>
-</div>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Valor  </th>
-       
-        <th scope="col">Cor</th>
-        <th scope="col">Descrição</th>
- 
-        <th scope="col">Quantidade</th>
-      </tr>
-    </thead>
-   
-    <tbody *ngIf="filterItems ">     
-      <tr  *ngFor="let list of filterItems[0]">
-        <td>{{list.name}}</td>
-        <td>R$ {{list.value}}</td>
-            
-        <td>{{list.color}}</td>
-        <td>{{list.description}}</td>
-        <td>{{list.quantity}}</td>
-        <td>
-          <button (click)="editProduct(list)" mat-icon-button >
-             <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-        <td>
-            <button  (click)="dellProduct(list)" mat-icon-button >
-               <mat-icon>delete</mat-icon>
+    <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Valor </th>
+
+          <th scope="col">Cor</th>
+          <th scope="col">Descrição</th>
+
+          <th scope="col">Quantidade</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="filterItems ">
+        <tr *ngFor="let list of filterItems[0]">
+          <td>{{list.name}}</td>
+          <td>R$ {{list.value}}</td>
+
+          <td>{{list.color}}</td>
+          <td>{{list.description}}</td>
+          <td>{{list.quantity}}</td>
+          <td>
+            <button (click)="editProduct(list)" mat-icon-button>
+              <mat-icon>edit</mat-icon>
             </button>
           </td>
-      </tr>
-    </tbody>
-  </table>
-<div class="col d-flex justify-content-center" *ngIf="listProdutcNull === true"><h1>Nenhum Produto Cadastrado  </h1> </div>
-  </div>
-</form> 
+          <td>
+            <button (click)="dellProduct(list)" mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="col d-flex justify-content-center" *ngIf="listProdutcNull === true">
+      <h1>Nenhum Produto Cadastrado </h1>
+    </div>
+  </form>
+</div>

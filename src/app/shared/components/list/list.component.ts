@@ -48,9 +48,14 @@ export class ListComponent implements OnInit, AfterContentInit{
  public newProduct(){
   this.router.navigate(['/new']);
  }
+
  public aletIventoryMin(res: any){
   const message =" Produto " + res.name + " atingiu estoque mínimo"
   this.toastr.info(message);
+ }
+
+ public help(){
+  this.router.navigate(['/help']); 
  }
  public filter(inputValue: String){
   this.filterItems[0] = this.procucts[0].filter((i:any)=>{

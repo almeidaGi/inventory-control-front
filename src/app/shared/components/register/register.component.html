@@ -1,8 +1,8 @@
 <div class="container mt-5">
     <div class=" mb-5">
         <br />
-        <h1 *ngIf="url === '/new'">Cadastro de Produto</h1>
-        <h1 *ngIf="url === '/edit'">Editando de Produto</h1>
+        <p class="h3" *ngIf="url === '/new'">Cadastro de Produto</p>
+        <p class="h3" *ngIf="url === '/edit'">Editando de Produto</p>
     </div>
     <form [formGroup]="form">
         <div class="mb-3 row">

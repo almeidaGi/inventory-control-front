@@ -27,7 +27,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     BrowserAnimationsModule, 
     CurrencyMaskModule,
     ToastrModule.forRoot({ positionClass: 'inline' }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(), 
+  
   ],
 
   providers: [
